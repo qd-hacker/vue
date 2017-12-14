@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>插值表达式和v-taxt的区别</title>
+    <style>
+            [v-cloak] {
+                display: none;
+              }  
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3 v-cloak>----{{ msg }}---</h3>
+        <hr>
+        <h3 v-text="msg">ffdsfds</h3>
+        <hr>
+        <div>{{ msg2 }}</div>
+        <div v-text="msg2">33</div>
+        <div v-html="msg2">333</div>
+        
+    </div>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <script>
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            msg:'插值表达式',
+            msg2:'<h6>插值表达式和v-taxt的区别 </h6>'
+        }
+    })
+    </script>
+</body>
+</html>     

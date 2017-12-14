@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跑马灯效果</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+            <input type="button" value="蹦起来" @click="ben">
+            <input type="button" value="停止" @click="stop">
+      <h3>{{ meg }}</h3>
+    </div>
+    <script>
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            meg:'**不要再蹦跶蹦跶了！！！~~~',
+            // 挂载一个定时器
+            intervalId: null
+        },
+       methods:{
+          ben(){
+            if (this.intervalId !== null) return
+            this.intervalId = setInterval(()=>{
+                // 截取从开始到结束的字符串，不包含结束，不能传入负值
+             const header=this.meg.substring(0,1);
+             const body = this.meg.substring(1);
+             this.meg = body+header;
+            },200)
+          },
+         stop(){
+             clearInterval(this.intervalId)
+             this.intervalId = null
+         }
+       }
+    });
+    </script>
+</body>
+</html>

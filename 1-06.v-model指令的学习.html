@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model指令的学习</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+       <h3>{{ msg }}</h3>
+       <!-- 单项数据传输 -->
+       <input type="text" :value="msg">
+       <hr>
+       <!-- 双向数据传输 -->
+       <input type="text" v-model="msg">
+    </div>
+    <script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:'很嗨',
+        },
+        methods:{}
+    })
+    </script>
+</body>
+</html>

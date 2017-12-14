@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用v-on指令绑定事件</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+   <div id="app">
+    <input type="button" value="点击，输出500伤害" @click="add">
+    <hr>
+    <h2>当前伤害:{{ AD }}法术伤害</h2>
+</div> 
+<script>
+    const vm = new Vue({
+        el:"#app",
+        data:{
+            AD:100
+        },
+        methods:{
+            add(){
+                this.AD += 500
+            }
+        }
+    });
+</script>
+</body>
+</html>
