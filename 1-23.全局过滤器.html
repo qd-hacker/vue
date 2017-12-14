@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="./lib/vue-2.5.9.js"></script>
+  <script src="./node_modules/moment/min/moment.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <div>
+
+      <label>Id:</label>
+      <input type="text" v-model="id">
+      <label>Name:</label>
+      <input type="text" v-model="name">
+      <input type="button" value="添加" class="btn btn-primary" @click="add"> &nbsp;&nbsp;&nbsp;&nbsp; 按照品牌名称检索:
+      <input type="text" v-model="keywords" @change="searchByName">
+
+    </div>
+
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>CTime</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in searchByName()" :key="item.id">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <!--  在调用过滤器的时候, 需要  使用 | 来调用, | 叫做 管道符  -->
+          <td>{{ item.ctime | formatDate | addStr('----', '====')}}</td>
+          <td>
+            <a href="http://www.baidu.com" @click.prevent="del(item.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- <p v-bind:title="new Date() |  formatDate">{{ new Date() |  formatDate }}</p> -->
+    <!-- <p v-text="new Date() | formatDate"></p> -->
+    
+
+
+  </div>
+
+  <script>
+
+    // 自定义一个 全局的 过滤器
+    // Vue.filter('过滤器将来被调用时候的名称', 过滤器的处理函数)
+    // 注意:过滤器的处理函数中, 第一个形参,作用已经被规定死了,永远是 管道符 前面的值
+    Vue.filter('formatDate', function (data) {
+      // console.log('过滤器被调用了')
+      // return data + '~~~'
+
+      return moment(data).format('YYYY-MM-DD HH:mm:ss')
+    })
+
+
+    // 如果要为过滤器传递参数,则 传递的参数,只能在 第二个形参的位置开始接收
+    Vue.filter('addStr', function (data, str, str2) {
+      return data + str + str2
+    })
+
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        id: '',
+        name: '',
+        keywords: '', // 根据名称检索时候的关键字
+        list: [
+          { id: 1, name: '奔驰', ctime: new Date() },
+          { id: 2, name: '宝马', ctime: new Date() },
+          { id: 3, name: '千里马', ctime: new Date() },
+          { id: 4, name: '奔奔', ctime: new Date(), }
+        ]
+      },
+      methods: {
+        add() { // 添加
+          this.list.push({ id: this.id, name: this.name, ctime: new Date() })
+          this.id = this.name = ''
+        },
+        del(id) { // 点击删除商品
+          const index = this.list.findIndex(function (item, i, arr) {
+            return item.id == id
+          })
+          this.list.splice(index, 1)
+        },
+        searchByName() { // 根据搜索的关键字,检索品牌数据
+          // 数组的 filter 方法,,作用是循环指定的数组,并把 满足回调函数中指定条件的项,返回,从而得到一个新数组
+          // 今后,为了防止此类事情的发生,上来就写 箭头函数
+          return this.list.filter(item => item.name.includes(this.keywords))
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+<!-- 过滤器的使用注意事项: -->
+<!-- 1.   Vue.filter('过滤器的名称', 过滤器的处理函数) -->
+<!-- 2.  注意: 过滤器的处理函数中,第一个形参,功能已经被规定好了,永远都是 管道符 前面的 值 -->
+<!-- 3.  调用过滤器    {{ item.ctime | formatDate }} -->
+<!-- 4. 在调用 过滤器的时候,可以传递参数, {{ item.ctime | formatDate('传递参数') }}   -->
+<!-- 5. 注意: 调用过滤器传递的参数, 只能从 处理函数的第二个 形参开始接收, 因为第一个形参已经被 管道符 前面的 值给占用了 -->
+<!-- 6. 注意: 过滤器的处理函数中, 必须 返回一个 值 -->
+<!-- 7. 可以连续使用管道符 调用多个过滤器, 最终输出的结果,永远以 最后一个 过滤器为准;  -->
+<!-- 8. 注意: 过滤器 只能使用在 差值表达中, 或者 v-bind 中,不能 使用在 其它地方了,比如 v-text 就不支持调用过滤器 -->
