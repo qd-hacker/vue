@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <style>
+    .red {
+        color: rgb(56, 78, 141);
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .thin {
+        font-weight: 200;
+    }
+
+    .small {
+        font-size: 14px;
+    }
+    </style>
+</head>
+<body>
+   <div id="app">
+        <p>在Vue中,使用 v-bind 为元素绑定数组的类样式:</p>
+        <h1 :class="['red', 'small']">这是一个大大的H1,我大,我骄傲!</h1>
+        <hr>
+        
+      <p>在数组中使用三元表达式:</p>
+        <input type="button" value="变瘦" @click="isthin=false">
+        <h1 :class="[ 'red',isthin ? 'thin' : '']">这是一个大大的H1,我大,我骄傲!</h1>
+    
+        <hr>
+    
+        <p>在数组中使用对象来简化三元表达式:</p>
+        <input type="button" value="变瘦" @click="isthin=true">
+        <h1 :class="[ 'red',{thin:isthin}]">这是一个大大的H1,我大,我骄傲!</h1>
+    
+        <hr>
+    
+        <p>传递对象作为类样式:</p>
+        <input type="button" value="变瘦" @click="isthin=true">
+        <h1 :class=" { red: false, italic: true, small: true, thin: isthin }">这是一个大大的H1,我大,我骄傲!</h1>
+   </div> 
+   <script>
+   var vm = new Vue({
+       el:"#app",
+       data:{
+           isthin:false
+       },
+       methods:{}
+   });
+   </script>
+</body>
+</html>
