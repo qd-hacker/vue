@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+<div id="app">
+<div>
+    <label>Id:
+    <input type="text" v-model="id" placeholder="输入id">
+    </label>
+    <label>Name:
+    <input type="text" v-model="name" placeholder="输入姓名">
+    </label>
+    <input type="button" value="添加" @click="add">
+    <ul>
+        <li v-for="(item,i) in list1" :key="item.name">
+            <!-- 其中, :key 属性,只接受 number 或 string 类型的数据,不要直接为 :key 指定对象 -->
+      <!-- :key 指定的值,必须具有唯一性 -->
+            <input type="checkbox">Id:{{ item.id }}==={{ item.name }}
+        </li>
+    </ul>
+</div> 
+<script>
+    var vm = new Vue({
+     el:"#app",
+     data:{
+       id:'',
+       name:'',
+       list1: [
+          { id: 1, name: '嬴政' },
+          { id: 2, name: '李斯' },
+          { id: 3, name: '吕不韦' },
+          { id: 4, name: '尉缭子' }
+        ]
+     },
+     methods:{
+         add(){
+            var info = {id:this.id,name:this.name}
+            // this.list1.push(info)
+            this.list1.unshift(info)
+         }
+     }
+    });
+</script>
+</body>
+</html>
