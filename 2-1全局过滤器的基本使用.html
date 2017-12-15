@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全局过滤器</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+    <!-- 把 哈哈 这两个字，在渲染的时候，替换为 呵呵， 前提是：不要修改 msg  -->
+    <!-- 使用Vue中过滤器，并不会修改原数据，只是在展示数据的时候，做了一层包装而已； -->
+    <div id="app">
+        <h3>{{ msg | filter1 | filter2 }}</h3>
+    </div>
+    <div id="app2">
+        <h3>{{ msg | filter3| filter1}}</h3>
+    </div>
+</body>
+<script>
+Vue.filter('filter1',function(data,str="呵呵"){
+    // return data.replace(/哈哈/g, str)
+    return data+'________'
+});
+Vue.filter('filter2',function(data){
+    return data+"笑死吧！"
+})
+var vm = new Vue({
+    el:"#app",
+    data:{
+        msg:'哈哈小猫讲段子哈哈笑死人的小段子哈哈笑段子内涵段子视频哈哈哈哈...'
+    }
+});
+var vm2 = new Vue({
+    // el:'#app2',
+    data:{
+        msg:'难忘的是最好忘得'
+    },
+    filters:{
+    filter3(data){
+        return data +'多少度手机号--------'
+    },
+    filter1(data){
+        return data+'============'
+    }
+    }
+});
+//可以使用$mount挂载
+vm2.$mount('#app2');
+</script>
+</html>
