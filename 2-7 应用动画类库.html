@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+        <div id="app">
+            <input type="button" value="Toggle" @click="flag=!flag">
+            <transition enter-active-class="bounceInDown" leave-active-class="bounceOutDown">
+                <h3 v-show="flag" class="animated">哈哈哈哈哈哈哈</h3>
+            </transition>
+         </div> 
+<script>
+var vm = new Vue({
+    el: '#app',
+    data: {
+    flag: false
+    },
+    methods: {}
+});
+</script>
+</body>
+</html>
