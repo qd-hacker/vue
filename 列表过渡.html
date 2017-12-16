@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <style>
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      line-height: 30px;
+      border: 1px dashed #ccc;
+      margin: 5px;
+      font-size: 12px;
+      padding-left: 10px;
+      width: 500px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      background-color: orange;
+      box-shadow: 0 0 7px gray;
+    }
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateY(200px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 0.5s ease;
+    }
+
+    .v-move { /* 让元素被改变定位的时候，有一个缓动的效果 */
+      transition: all 0.5s ease;
+    }
+
+    .v-leave-active { /* 表示要被删除的那个元素， 让即将被移除的元素，脱离标准流，这样，后面的元素就能渐渐的浮动上来了 */
+      position: absolute;
+    }
+    </style>
+</head>
+<body>
+   <div id="app">
+        <div>      
+        Id：<input type="text" v-model="id">
+        Name：<input type="text" v-model="name">
+        <input type="button" value="添加" @click="add">
+    </div>
+     <transition-group tag="ul">
+        <li v-for="(item,i) in list" :key="item.id" @click="del(i)">{{ item.id }}---------{{ item.name }}</li>
+     </transition-group> 
+   </div> 
+   <script>
+     var vm = new Vue({
+        el:"#app",
+        data:{
+            list:[{id:1,name:"大头"},{id:2,name:"二头"},{id:3,name:"三头"}],
+            id:'',
+            name:''
+        },
+        methods:{
+            add(){
+                this.list.unshift({id:this.id,name:this.name});
+                this.id=this.name=''
+            },
+            del(i){
+                this.list.splice(i,1)
+            }
+        }
+     });
+   </script>
+</body>
+</html>
