@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>品牌管理</title>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+    <script src="./lib/vue-2.5.9.js"></script>
+    <script src="./lib/axios-v0.17.1.js"></script>
+    <script src="./baseConfig.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加新品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+    
+            <div class="form-group">
+            <label>品牌名称：</label>
+            <input type="text" class="form-control" v-model="name">
+            </div>
+            <div class="form-group">
+            <input type="button" value="添加" class="btn btn-primary" @click='add'>
+            </div>
+        </div>
+    </div> 
+    <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CTime</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for='(item,i) in list':key="item.id">
+                  <td>{{ item.id }}</td>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.ctime }}</td>
+                  <td>
+                      <a href="#" @click.prevent='del(item.id)'>删除</a>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
+       
+</div>  
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            list:[],
+            name:''
+        },
+        created(){
+            this.render();
+        },
+        methods:{
+          async render(){
+            const { data } = await this.$http.get('/api/getprodlist')
+            //   console.log(data);
+            if(data.status==0) this.list=data.message;
+          },
+          async add(){
+            if(this.name.trim().length <=0) return alert('品牌名称不能为空！');
+            const {data} = await this.$http.post('/api/addproduct',{name:this.name.trim()});
+            this.id =  this.name = '';
+            if(data.status===0) this.render();
+          },
+          async del(id){
+             const {data} = await this.$http.get('/api/delproduct/'+id)
+             if(data.status===0) this.render();
+          }
+        }
+    })
+</script>
+</body>
+</html>
