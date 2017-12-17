@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+   <div id="app">
+       <!-- 引入一个全局组件 -->
+       <!-- 是构造函数的一个实例 -->
+        <mycom1></mycom1>
+</div> 
+<script>
+    //com1 这是一个构造函数，一个特殊的vue的实例
+   const com1 =  Vue.extend({
+        //表示组建的ui代码解构
+        template:"<h1>全局组件</h1>"  
+    })
+    //向全局注册一个组件
+    // Vue.component('组件的名称','组件的构造函数')
+    Vue.component('mycom1',' com1')
+    //VM 是vue $3类型的
+const vm = new Vue({
+    el:'#app',
+    data:{},
+    methods:{
+        //ajax请求
+        getList(){}
+    },
+    filters:{},
+    directives:{},
+    created(){
+        //渲染页面
+        this.getList()
+    },
+    mounted(){
+        //在网页中有一些第三方插件需要初始化
+    }
+})
+</script>
+</body>
+
+</html>

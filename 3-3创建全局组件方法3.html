@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+   <div id="app">
+       <!-- 引入一个全局组件 -->
+        <mycom3></mycom3>
+</div> 
+<!-- 定义一个templ元素 -->
+<!-- 可以定义组件的模板结构 -->
+<template id="tmpl">
+ <h3>外界定义的模板结构</h3>
+</template>       
+<script>
+
+//接收一个组建的构造函数，也接受一个对象
+ Vue.component('mycom3',{
+    template:"#tmpl"  
+ })
+
+ const vm = new Vue({
+    el:'#app',
+    data:{},
+    methods:{
+        //ajax请求
+        getList(){}
+    },
+    filters:{},
+    directives:{},
+    created(){
+        //渲染页面
+        this.getList()
+    },
+    mounted(){
+        //在网页中有一些第三方插件需要初始化
+    },
+    components:{//定义事例中私有组件 
+    'mycom4':{
+        template:'<h4>私有组件</h4>'
+    }
+    }
+})
+</script>
+</body>
+
+</html>
