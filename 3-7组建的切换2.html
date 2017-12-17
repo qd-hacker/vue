@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <style>
+    .v-enter,
+    .v-leave-to{
+        opacity: 0;
+        transform: translateX(400px);
+    }
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 2s linear;
+    }
+    .v-leave-active{
+        position: absolute;
+    }
+    h3{
+        color: red;
+        padding-left: 300px;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+  <a href="#" @click="name='name1'">组件1</a>
+  <a href="#" @click="name='name2'">组件2</a>     
+  <a href="#" @click="name='name3'">组件3</a>     
+  <a href="#" @click="name='name4'">组件4</a>          
+  <transition>
+   <component :is="name"></component>
+  </transition>
+</div> 
+<script>
+Vue.component("name1",{
+    template:"<h3>大头娃娃</h3>"
+});
+Vue.component("name2",{
+    template:"<h3>哈希哈希</h3>"
+});
+Vue.component("name3",{
+    template:"<h3>6666</h3>"
+});
+Vue.component("name4",{
+    template:"<h3>AAAAA</h3>"
+})
+var vm = new Vue({
+    el:'#app',
+    data:{
+     name:'name1'
+    },
+    methods:{
+
+    }
+})
+</script>
+</body>
+</html>

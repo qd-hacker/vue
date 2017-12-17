@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+    <div id="app">
+    <input type="button" value="登录" @click='flag=true'>
+    <input type="button" value="注册" @click='flag=false'>
+     <login v-if='flag'></login>
+     <reg v-else='flag'></reg>
+    </div>
+  <script>
+  Vue.component('login',{
+    template:"<h2>登录</h2>"  
+ })
+ Vue.component('reg',{
+    template:"<h2>注册</h2>"  
+ })
+
+ const vm = new Vue({
+    el:'#app',
+    data:{
+    flag :true
+    },
+    methods:{
+        //ajax请求
+        getList(){}
+    },
+    filters:{},
+    directives:{},
+    created(){
+        //渲染页面
+        this.getList()
+    },
+    mounted(){
+        //在网页中有一些第三方插件需要初始化
+    }
+})
+  </script>  
+</body>
+</html>

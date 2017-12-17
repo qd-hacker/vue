@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+</head>
+<body>
+<div id="app">
+   <com @fun="add">
+    
+  </com> 
+</div>  
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+      bbb:'' 
+    },
+    methods:{
+      add(xingcan){
+          this.bbb=xingcan;
+          console.log(this.bbb);
+      }
+    },
+    components:{
+       'com':{
+           template:'<h4 @click="zi">这波66688888</h4>',
+        //    data:function(){
+        //        return {
+        //         aaa:'交个朋友吧！'
+        //        }
+        //    },
+        //data必须为函数，返回一个对象
+           data(){
+               return {
+                aaa:'交个朋友吧！'
+               }
+           },
+            methods:{
+                zi(){
+                    //当触发函数的时候
+                  this.$emit('fun',this.aaa);
+                }
+            }
+       }
+    }
+})
+</script>
+</body>
+</html>
