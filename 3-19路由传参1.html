@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <!-- 1. 导入 vue-router -->
+    <script src="./lib/vue-router-v3.0.1.js"></script>
+    <style>
+     /* .router-link-active {
+      color: red;
+      font-weight: bold; */
+      /* font-style: italic; */
+      /* font-size: 20px;
+      text-decoration: underline;
+    } */
+    .my-active{
+     color: orange;
+      font-size: 20px;
+    }
+    .v-enter{
+      opacity: 0;
+      transform: translateX(200px);
+    }
+    .v-leave-to{
+        transform: translateX(-300px);
+    }
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 1s ease;
+      position: absolute;
+    }
+    #app{
+        padding-left: 200px;
+    }
+    </style>
+</head>
+<body>
+  <div id="app">
+   <router-link to="/login?id=10" tag="span">登录</router-link>  
+   <router-link to="/reg" >注册</router-link>
+   <transition>
+   <router-view></router-view>
+   </transition>
+</div>  
+<script>
+    const login = {
+        template:'<h3>登录----{{ $route.query.id }}</h3>',
+        created() { // 当 login 组件 中 data 和 methods 初始化完毕后，调用 created
+        console.log(this)
+      }
+    }
+    const reg = {
+        template:'<h3>注册</h3>'
+    }
+    const router = new VueRouter({
+        routes:[
+         { path: '/', redirect: '/login' },
+         {path:'/login',component:login},
+         {path:'/reg',component:reg},
+        ],
+        linkActiveClass:'my-active'
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+    //   router:router,//可用省略写法
+      router // 4. 把路由对象，通过 vm 的 router 属性，挂载到 vm 上
+    }); 
+</script>
+</body>
+</html>
