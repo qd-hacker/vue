@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由规则的嵌套</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <script src="./lib/vue-router-v3.0.1.js"></script>
+    <style>
+    #app{
+        height: 600px;
+        width: 800px;
+        margin: 0 auto;
+    }
+    .list{
+        height: 600px;
+        width: 800px;
+     border: 1px solid skyblue;
+    }
+    .news{
+        height: 600px;
+        width: 800px;
+        border: 1px solid pink; 
+        background-color:skyblue;
+    }
+    h3{
+        height: 475px;
+        background-color:pink;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/list">显示账号组件</router-link>
+        <router-link to="/news">注册账号组件</router-link>
+        <router-view></router-view>   
+        
+    </div>
+ <script>
+  const list ={
+   template:`<div class="list">
+           <h1>这是 Account账号组件</h1>
+           <router-link to="/login">登录</router-link>
+           <router-link to="/reg">注册</router-link>
+           <router-view></router-view>
+           </div>`
+  }
+  const news ={
+   template:`<div class="news">
+          <h1>这是 Account注册组件</h1>
+          </div>`
+  }
+  const login ={
+      template:` <h3>这是登录组件</h3>`
+  }
+  const reg ={
+      template:` <h3>这是注册组件</h3>`
+  }
+  var router = new VueRouter({
+   routes:[
+     {path:'/list',component:list,children:[
+     {path:'/login',component:login},
+     {path:'/reg',component:reg}
+     ]},
+     {path:'/news',component:news}
+   ]
+  })
+   var vm = new Vue({
+     el:'#app',
+     data:{},
+     methods:{},
+     router
+   })
+ </script>   
+</body>
+</html>
