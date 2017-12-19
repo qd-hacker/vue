@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>监听url地址的改变</title>
+    <script src="./lib/vue-2.5.9.js"></script>
+    <script src="./lib/vue-router-v3.0.1.js"></script>
+</head>
+<body>
+  <div id="app">
+  <router-link to="/login">登录</router-link>    
+  <router-link to="/reg">注册</router-link>
+  <h3>{{msg}}</h3>
+  <router-view></router-view>
+  </div>  
+  <script>
+  const login = {
+      template:`<h1>登录组件</h1>`
+  }
+  const reg = {
+      template:`<h1>注册组件</h1>`
+  }
+  var router = new VueRouter({
+    routes:[
+    {path:'/login',component:login},
+    {path:'/reg',component:reg}
+    ]
+  })
+  var vm = new Vue({
+      el:"#app",
+      data:{
+          msg:'欢迎',
+      },
+      router,
+      created(){
+       const path = this.$route.path;
+       if(path=='/login'){
+           this.msg='欢迎来到9999'
+       }else if(path=='/reg'){
+           this.msg='欢迎注册99999' 
+       }
+      },
+      watch:{
+          '$route.path':function(newval){
+           if(newval=='/login'){
+            this.msg='欢迎来到'
+           }else if(newval=='/reg'){
+           this.msg='欢迎注册' 
+           }  
+          }
+       
+      }
+  })
+  </script>
+</body>
+</html>
